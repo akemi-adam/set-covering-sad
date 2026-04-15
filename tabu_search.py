@@ -36,4 +36,19 @@ class SolveSCP:
             uncovered -= self.coverage[best_test]
         return solution
 
-    
+    def get_neighbors(self, solution) -> list:
+        '''
+        Gera vizinhos de uma solução
+        '''
+        neighbors = []
+        for test in self.tests:
+            new_solution = solution.copy()
+            if test in new_solution:
+                new_solution.remove(test)
+                move = ("remove", test)
+            else:
+                new_solution.add(test)
+                move = ("add", test)
+            neighbors.append((new_solution, move))
+        return neighbors
+
