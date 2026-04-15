@@ -21,3 +21,19 @@ class SolveSCP:
         not_covered: set = self.requirements - covered
         return len(solution) + len(self.requirements) * len(not_covered)
 
+    def initial_solution(self) -> set:
+        '''
+        Gera uma primeira solução com um algoritmo guloso. 
+        '''
+        uncovered: set = set(self.requirements)
+        solution: set = set()
+        while uncovered:
+            best_test = max(
+                self.tests,
+                key=lambda t: len(self.coverage[t] & uncovered)
+            )
+            solution.add(best_test)
+            uncovered -= self.coverage[best_test]
+        return solution
+
+    
