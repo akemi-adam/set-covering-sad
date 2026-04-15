@@ -1,4 +1,4 @@
-from random import choice, randint, sample
+from random import choice, randint, random, sample
 from typing import Dict
 
 class GenerateSet:
@@ -10,6 +10,7 @@ class GenerateSet:
         self.requirements = requirements
         self.requirements_length = len(requirements)
         self.tests = tests
+        self.requirements_per_test = random()
         
     def _make_requirements(self):
         '''
@@ -18,7 +19,11 @@ class GenerateSet:
         requirements_by_tests: Dict[str, set] = {}
         for test in self.tests:
             i: int = randint(1, self.requirements_length)
-            requirements_by_tests[test] = set(sample(self.requirements, i))
+            requirements_by_tests[test] = set(
+                sample(
+                    self.requirements, max(1, int(i * self.requirements_per_test))
+                )
+            )
         return requirements_by_tests
             
     def safe_exec(self):
