@@ -10,3 +10,14 @@ class SolveSCP:
         self.requirements = set().union(*coverage.values())
         self.max_movs_size = max_movs_size
         self.max_iter = max_iter
+
+    def cost(self, solution: set) -> int:
+        '''
+        Função de custo para uma solução. Aplica uma penalidade para o número de requisitos não cobertos
+        '''
+        covered: set = set()
+        for t in solution:
+            covered |= self.coverage[t]
+        not_covered: set = self.requirements - covered
+        return len(solution) + len(self.requirements) * len(not_covered)
+
