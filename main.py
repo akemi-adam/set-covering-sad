@@ -1,6 +1,6 @@
 from generate import GenerateSet
 from tabu_search import SolveSCP
-from utils import print_dict
+from utils import print_dict, generate_dzn
 
 if __name__ == '__main__':
     requirements = [f"RF{i}" for i in range(1, 11)]
@@ -17,3 +17,5 @@ if __name__ == '__main__':
     print("Cobertura: ")
     print_dict(coverage)
     print("Solução encontrada:", solution)
+    minizinc_filename: str = generate_dzn(coverage)
+    print(f'Arquivo {minizinc_filename} criado!')
